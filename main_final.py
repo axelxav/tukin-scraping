@@ -6,14 +6,16 @@ from configparser import ConfigParser
 from random import randint
 
 MINIMUM_TWEETS = 1000
-# QUERY = 'tunjangan kinerja dosen asn "tunjangan kinerja dosen asn" (tunjangan OR kinerja OR tukin OR dosen OR asn OR kemendiktisaintek OR anggaran) lang:id until:2025-02-07 since:2025-01-01'
-# QUERY = 'tunjangan kinerja lang:id until:2025-02-07 since:2024-12-01'
-# QUERY = 'tukin lang:id until:2025-02-08 since:2024-12-01'
-# QUERY = 'tunjangan kinerja "dosen asn" (tunjangan OR (tukin) OR tukin OR dosen OR kemdiktisaintek OR kemendiktisaintek) lang:id until:2025-02-08 since:2024-12-01'
-# QUERY = 'tunjangan kinerja ""tunjangan kinerja" "bayar tukin"  "dosen asn"" (tukin OR kemendiktisaintek OR kemdiktisaintek OR mendiktisaintek) lang:id until:2025-02-08 since:2024-12-01'
-# QUERY = '(from:tukin_dosenASN) lang:id until:2025-01-07'
-QUERY = '"dosen asn" (kemdiktisaintek OR kemendiktisaintek OR mendiktisaintek OR tukin) lang:id until:2025-02-08 since:2024-12-01'
-CSV_FILE = 'tweets8.csv'
+# queries to use
+# QUERY = '"dosen asn" (kemdiktisaintek OR kemendiktisaintek OR mendiktisaintek OR tukin) lang:id until:2025-02-08 since:2024-12-01'
+# QUERY = 'tukin lang:id until:2025-02-09 since:2024-12-01'
+# QUERY = 'tukin dosen lang:id until:2025-02-09 since:2024-12-01'
+# QUERY = 'tunjangan kinerja dosen asn lang:id until:2025-02-09 since:2024-12-01'
+# QUERY = 'kemendiktisaintek lang:id until:2025-02-09 since:2024-12-01'
+# QUERY = 'dosen lang:id until:2025-02-09 since:2024-12-01'
+QUERY = '(from:tukin_dosenASN)'
+QUERY = ''
+CSV_FILE = 'tweets7.csv'
 
 async def get_tweets(tweets):
     if tweets is None:
@@ -39,7 +41,7 @@ async def main():
 
     global client
     client = Client(language='en-US')
-    client.load_cookies('cookies.json')
+    client.load_cookies('cookies1.json')
 
     tweet_count = 0
     tweets = None
@@ -65,9 +67,6 @@ async def main():
                 tweet.text, tweet.in_reply_to, tweet.reply_count, tweet.favorite_count, tweet.hashtags
             ]
             
-            # with open('tweets1.csv', 'a', newline='', encoding='utf-8') as file:
-            #     writer = csv.writer(file)
-            #     writer.writerow(tweet_data)
             with open(CSV_FILE, 'a', newline='', encoding='utf-8') as file:
                 writer = csv.writer(file)
                 writer.writerow(tweet_data)
