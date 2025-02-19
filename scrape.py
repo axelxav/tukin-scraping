@@ -19,15 +19,17 @@ MINIMUM_TWEETS = 1000
 # QUERY = 'kesejahteraan dosen lang:id until:2025-02-09 since:2024-12-01'
 # QUERY = 'dosen asn lang:id until:2025-02-09 since:2024-12-01'
 # QUERY = '(#tukinforall) lang:id until:2025-02-10 since:2024-12-01'
-QUERY = '(#bayartukindosenkemdiktisaintek OR #tukinforall OR #dosenbukansapiperah) lang:id until:2025-02-13 since:2025-01-01'
-CSV_FILE = './new_tweets/tweets4.csv'
+# QUERY = '(#bayartukindosenkemdiktisaintek OR #tukinforall OR #dosenbukansapiperah OR dosendimiskinkannegara) lang:id until:2025-02-19 since:2025-01-01'
+# QUERY = '(from:tukin_dosenASN) lang:id until:2025-02-19 since:2025-01-01'
+QUERY = 'adaksi lang:id until:2025-02-19 since:2025-01-01'
+CSV_FILE = './new_tweets/tweets6(keyword_adaksi).csv'
 
 async def get_tweets(tweets):
     """Retrieve tweets asynchronously, handling request limits."""
     try:
         if tweets is None:
             print(f'{datetime.now()} - Getting initial tweets...')
-            tweets = await client.search_tweet(QUERY, product='Top')
+            tweets = await client.search_tweet(QUERY, product='Top', count=10, )
         else:
             wait_time = randint(15, 30)  # Increased delay to avoid blocks
             print(f'{datetime.now()} - Waiting {wait_time} seconds before the next request...')
@@ -73,7 +75,7 @@ async def main():
     client = Client(language='en-US')
     
     try:
-        client.load_cookies('cookies1.json')  # Ensure cookies.json is valid
+        client.load_cookies('cookies2.json')  # Ensure cookies.json is valid
     except FileNotFoundError:
         print("❌ 'cookies.json' not found! Please login and save cookies first.")
         return
